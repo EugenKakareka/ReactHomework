@@ -3,6 +3,7 @@ import { userData } from "./userData";
 import UsersList from "./components/UsersList";
 import SortSelect from "./components/SortSelect";
 import Modal from "./components/Modal/Modal";
+import FindByName from "./components/FindByName";
 import "./styles/App.css";
 
 function App() {
@@ -30,9 +31,11 @@ function App() {
 
   return (
     <div className="App">
-      <Modal visible={isActive} setVisible={setIsActive}>
-        <div>{selectedUser.name}</div>
-      </Modal>
+      <Modal
+        visible={isActive}
+        setVisible={setIsActive}
+        selectedUser={selectedUser}
+      ></Modal>
       <SortSelect
         defaultValue="Sorting type"
         options={[
@@ -42,8 +45,15 @@ function App() {
         value={sortType}
         onSortChange={sortByAge}
       />
-      <input value={find} onChange={(event) => setFind(event.target.value)} />
-      <UsersList users={findByName} setIsActive={setIsActive} setSelectedUser={setSelectedUser}/>
+      <FindByName
+        value={find}
+        onChange={(event) => setFind(event.target.value)}
+      />
+      <UsersList
+        users={findByName}
+        setIsActive={setIsActive}
+        setSelectedUser={setSelectedUser}
+      />
     </div>
   );
 }
