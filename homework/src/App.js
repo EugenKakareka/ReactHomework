@@ -1,16 +1,51 @@
-import React, { useState } from 'react';
-import {userData} from './userData';
-import './styles/App.css';
-import UsersList from './components/UsersList'
+import React, { useState, useMemo } from "react";
+import { userData } from "./userData";
+import UsersList from "./components/UsersList";
+import SortSelect from "./components/SortSelect";
+import Modal from "./components/Modal/Modal";
+import "./styles/App.css";
 
 function App() {
-    const [users, setUsers] = useState(userData)
+  const [users, setUsers] = useState(userData);
+  const [find, setFind] = useState("");
+  const [sortType, setSortType] = useState("");
+  const [isActive, setIsActive] = useState(false);
+  const [selectedUser, setSelectedUser] = useState({});
 
-    return (
-        <div className = 'App'>
-            <UsersList users = {users}/>
-        </div>
+  const findByName = useMemo(() => {
+    return users.filter((item) =>
+      item.name.toLowerCase().includes(find.toLowerCase())
     );
-    }
+  }, [users, find]);
 
-    export default App;
+  const sortByAge = (sort) => {
+    setSortType(sort);
+    if (sort === "ab") {
+      setUsers([...users].sort((a, b) => a.age - b.age));
+    }
+    if (sort === "ba") {
+      setUsers([...users].sort((a, b) => b.age - a.age));
+    }
+  };
+
+  return (
+    <div className="App">
+      <Modal visible={isActive} setVisible={setIsActive}>
+        <div>{selectedUser.name}</div>
+      </Modal>
+      <SortSelect
+        defaultValue="Sorting type"
+        options={[
+          { value: "ab", title: "From youngest" },
+          { value: "ba", title: "From oldest " },
+        ]}
+        value={sortType}
+        onSortChange={sortByAge}
+      />
+      <input value={find} onChange={(event) => setFind(event.target.value)} />
+      <UsersList users={findByName} setIsActive={setIsActive} setSelectedUser={setSelectedUser}/>
+    </div>
+  );
+}
+
+export default App;
