@@ -1,16 +1,30 @@
 .container {
   width: 600px;
   margin: 0 auto;
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   margin-top: 5rem;
   padding: 3rem 5rem;
+}
+
+.containerTime{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .time {
   font-size: 8rem;
   margin-bottom: 1rem;
   color: rgb(10, 10, 10);
+  display: flex;
+  justify-content: center;
+}
+
+.buttons{
+  display: flex;
+  justify-content: center;
 }
 
 .buttons button {
