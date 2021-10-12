@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Button from "./Button";
+import List from "./List";
 
 
 const Timer = () => {
@@ -70,12 +71,7 @@ const Timer = () => {
           <Button onClick={resetTimer} className="reset">Reset</Button>
         </div>
       </div>
-
-      <div className="containerList">
-        <ol>
-          {timesList.map((time)=>(<li>{time}</li>))}
-        </ol>
-      </div>
+      <List timesList={timesList}/>
     </div>
   );
 };
