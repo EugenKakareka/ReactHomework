@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import Button from "./Button";
+
 
 const Timer = () => {
   const [second, setSecond] = useState("00");
@@ -50,7 +52,6 @@ const Timer = () => {
   }
 
   
-    
   return (
     <div className="container">
       <div className="containerTime">
@@ -63,10 +64,10 @@ const Timer = () => {
         </div>
         <div className="buttons">
           {pause ? (<button onClick={() => setIsActive(true)} className="continue">Continue</button>) 
-          : (<button onClick={() => setIsActive(true)} className="start">Start</button>)
+          : (<Button onClick={() => setIsActive(true)} className="start">Start</Button>)
           }
-          <button onClick={stopTimer} className="stop">Stop</button>
-          <button onClick={resetTimer} className="reset">Reset</button>
+          <Button onClick={stopTimer} className="stop">Stop</Button>
+          <Button onClick={resetTimer} className="reset">Reset</Button>
         </div>
       </div>
 
