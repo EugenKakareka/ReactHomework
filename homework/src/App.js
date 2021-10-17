@@ -1,8 +1,15 @@
-
-import './App.css';
+import React from "react";
+import { formReducer, initialState } from "./reducer/formReducer";
+import { FormProvider } from "./context/context";
+import Forms from "./components/Forms";
+import "./App.css";
 
 function App() {
-    return (<div></div>);
-    }
+  return (
+    <FormProvider formReducer={formReducer} initialState={initialState}>
+      <Forms />
+    </FormProvider>
+  );
+}
 
-    export default App;
+export default App;
