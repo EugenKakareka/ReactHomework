@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { nextForm, saveData } from "../reducer/formReducer";
+import { nextForm, saveData } from "../actions/actions";
 import { useFormStore } from "../context/context";
 
 const schema = yup
@@ -20,12 +20,12 @@ const schema = yup
     .required();
 
 export function Step1() {
-  const [state,dispatch] = useFormStore();
+  const [,dispatch] = useFormStore();
 
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    //formState: { errors }
   } = useForm({resolver: yupResolver(schema)})
 
   const onSubmit = (values) => {

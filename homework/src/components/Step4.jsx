@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { nextForm, prevForm, saveData } from "../reducer/formReducer";
+import { nextForm, prevForm, saveData } from "../actions/actions";
 import { useFormStore } from "../context/context";
 
 const schema = yup
@@ -20,7 +20,7 @@ export function Step4() {
     register,
     handleSubmit,
   } = useForm({ resolver: yupResolver(schema) });
-  const [state, dispatch] = useFormStore();
+  const [, dispatch] = useFormStore();
 
   const onSubmit = (values) => {
     dispatch(nextForm(1));
@@ -35,17 +35,19 @@ export function Step4() {
       <form onSubmit={handleSubmit(onSubmit)}>
       <label htmlFor="pass">Пароль:</label>
         <input
-        id="pass"
+          id="pass"
+          name="password"
           type="password"
           placeholder="Password"
           {...register("password")}
         />
         <label htmlFor="confPass">Подтвердите пароль:</label>
         <input
-        id="confPass"
+          id="confPass"
+          name="confPassword"
           type="password"
           placeholder="Confirm password"
-          {...register("password")}
+          {...register("confPassword")}
         />
 
         <button type="button" onClick={toPreviousForm}>

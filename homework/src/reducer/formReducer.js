@@ -1,26 +1,10 @@
-const NEXT_STEP = "[form]-next step";
-const PREVIOUS_STEP = "[form]-previous step";
-const SAVE_STEP_DATA = "[form]-save step data"
+ import { NEXT_STEP,PREVIOUS_STEP,SAVE_STEP_DATA,ADD_FILE } from "../actions/actions";
 
-export const initialState = {
+ export const initialState = {
   step: 1,
-  data:{}
+  data:{},
+  file:''
 };
-
-export const nextForm = (step) => ({
-  type: NEXT_STEP,
-  payload: step,
-});
-
-export const prevForm = (step) => ({
-    type: PREVIOUS_STEP,
-    payload: step,
-  });
-
-export const saveData = (data) => ({
-    type: SAVE_STEP_DATA,
-    payload: data
-  });
 
 export const formReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -41,6 +25,11 @@ export const formReducer = (state = initialState, action) => {
             ...state,
             data:{...state.data, ...action.payload}
         }
+    }
+    case ADD_FILE:{
+      let reader = new FileReader();
+			reader.readAsDataURL(action.payload.upload[0]);
+			return { ...state, file: reader };
     }
     default:
       return state;
