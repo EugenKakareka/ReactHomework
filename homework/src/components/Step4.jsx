@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { ErrorMessage } from "@hookform/error-message";
 import * as yup from "yup";
 import { nextForm, prevForm, saveData } from "../actions/actions";
 import { useFormStore } from "../context/context";
@@ -19,10 +20,14 @@ export function Step4() {
   const {
     register,
     handleSubmit,
+    formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
   const [, dispatch] = useFormStore();
 
   const onSubmit = (values) => {
+    if (values.password !== values.confPassword) {
+      return alert("Confirm password must be the same");
+    }
     dispatch(nextForm(1));
     dispatch(saveData(values));
   };
@@ -31,9 +36,14 @@ export function Step4() {
   };
   return (
     <>
-      <h1>Шаг: 4</h1>
+      <h1>Step: 4</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
-      <label htmlFor="pass">Пароль:</label>
+        <label htmlFor="pass">Password:</label>
+        <ErrorMessage
+          errors={errors}
+          name="password"
+          render={({ message }) => <p>{message}</p>}
+        />
         <input
           id="pass"
           name="password"
@@ -41,7 +51,8 @@ export function Step4() {
           placeholder="Password"
           {...register("password")}
         />
-        <label htmlFor="confPass">Подтвердите пароль:</label>
+        <label htmlFor="confPass">Confirm password:</label>
+
         <input
           id="confPass"
           name="confPassword"

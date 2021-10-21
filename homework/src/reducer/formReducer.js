@@ -27,6 +27,9 @@ export const formReducer = (state = initialState, action) => {
         }
     }
     case ADD_FILE:{
+      if (!action.payload.upload[0]){
+        return state
+      }
       let reader = new FileReader();
 			reader.readAsDataURL(action.payload.upload[0]);
 			return { ...state, file: reader };

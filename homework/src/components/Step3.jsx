@@ -5,10 +5,13 @@ import { useFormStore } from "../context/context";
 
 export function Step3() {
   const [, dispatch] = useFormStore();
-  const { register,handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm();
   const onSubmit = (file) => {
+    if(!file){
+      return
+    }
     dispatch(nextForm(1));
-    dispatch(addFile(file))
+    dispatch(addFile(file));
   };
   const toPreviousForm = () => {
     dispatch(prevForm(1));
@@ -16,11 +19,13 @@ export function Step3() {
 
   return (
     <>
-      <h1>Шаг: 3</h1>
+      <h1>Step: 3</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <input type="file" name="upload"{...register("upload")}/>
+        <input type="file" name="upload" {...register("upload")} />
 
-        <button type="button" onClick={toPreviousForm}>Previous</button>
+        <button type="button" onClick={toPreviousForm}>
+          Previous
+        </button>
         <button type="submit">Next</button>
       </form>
     </>
