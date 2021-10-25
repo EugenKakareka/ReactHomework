@@ -2,7 +2,7 @@ import React from "react";
 import { goToStep } from "../../actions";
 import { useGameStore } from "../../context";
 
-export default function HistoryList() {
+export default function StepsHistory() {
   const [state, dispatch] = useGameStore();
 
   return (
