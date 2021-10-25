@@ -3,9 +3,15 @@ import "./Game.scss";
 import Board from "../Board/Board";
 import { useGameStore } from "../../context";
 import { getSignTurn, calculateWinner } from "../../utils";
-import { addToHistory, setWinner, toggleTurn } from "../../actions";
+import {
+  addToHistory,
+  addToWinnersHistory,
+  setWinner,
+  toggleTurn,
+} from "../../actions";
 import Winner from "../Winner/Winner";
 import StepsHistory from "../StepsHistory/StepsHistory";
+import WinnersHistory from "../WinnersHistory/WinnersHistory";
 
 export default function Game() {
   const [{ history, isXTurn }, dispatch] = useGameStore();
@@ -19,6 +25,7 @@ export default function Game() {
 
     if (winner) {
       dispatch(setWinner(winner));
+      dispatch(addToWinnersHistory(winner));
     }
 
     dispatch(addToHistory(squares));
@@ -30,6 +37,7 @@ export default function Game() {
       <Board squares={currentStep.squares} onClick={handleClick} />
       <Winner />
       <StepsHistory />
+      <WinnersHistory />
     </div>
   );
 }

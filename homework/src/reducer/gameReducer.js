@@ -41,6 +41,7 @@ export const gameReducer = (state = initialState, action) => {
     case START_NEW_GAME: {
       return {
         ...initialState,
+        winnersHistory: [...state.winnersHistory],
       };
     }
     case TOGGLE_TURN: {
@@ -51,7 +52,8 @@ export const gameReducer = (state = initialState, action) => {
     }
     case WINNERS_HISTORY:{
         return {
-            ...state
+            ...state,
+            winnersHistory:[...state.winnersHistory, action.payload]
         }
     }
     default:

@@ -28,7 +28,7 @@ export const toggleTurn = (turn) => ({
   payload: turn,
 });
 
-export const addToWinnersHistory = (turn) =>({
+export const addToWinnersHistory = (winner) =>({
     type: WINNERS_HISTORY,
-    payload: turn
+    payload: winner
 })
